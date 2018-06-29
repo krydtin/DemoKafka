@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_NAME" value="DemoKafka.log" />
+    <property name="LOG_ARCHIVE" value="archive" />
+    
+<!--     <include resource="org/springframework/boot/logging/logback/base.xml"/> -->
+    <logger name="org.springframework.web" level="ERROR"/>
+    <logger name="org.springframework.boot" level="ERROR" />
+    <logger name="org.quartz" level="ERROR" />
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">   	
+        <encoder>
+        	<charset>UTF-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}[%-5level]%logger{35}:%L - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_NAME}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_ARCHIVE}/application-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>    
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+        	<charset>UTF-8</charset>
+         	<pattern>%t %d{yyyy-MM-dd HH:mm:ss.SSS}[%-5level]%logger{35}:%L - %msg %n</pattern>
+        </encoder>
+    </appender> 
+
+    <root level="INFO">
+        <!--<appender-ref ref="FILE" />-->
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
